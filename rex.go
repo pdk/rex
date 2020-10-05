@@ -5,9 +5,16 @@ type Pipe struct {
 	data chan Record
 }
 
+// RecordProducer is a thing that produces a stream of Records.
 type RecordProducer chan Record
+
+// RecordProcessor is a thing that processes a single Record at a time.
 type RecordProcessor func(Record) Record
+
+// RecordCollector consumes a stream of Records.
 type RecordCollector func(chan Record)
+
+// RecordFilter decides if a Record should get dropper.
 type RecordFilter func(Record) bool
 
 // Unue ("first") start with a data producer.

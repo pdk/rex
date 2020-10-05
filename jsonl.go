@@ -9,6 +9,7 @@ import (
 	"log"
 )
 
+// ReadJSONLines reads input as line-by-line JSON.
 func ReadJSONLines(input io.Reader) chan Record {
 
 	c := make(chan Record)

@@ -70,7 +70,7 @@ func WriteJSON(output io.Writer) RecordCollector {
 					log.Fatalf("WriteJSON failed to write object separator: %v", err)
 				}
 			}
-			i += 1
+			i++
 
 			result, err := json.MarshalIndent(r.values, "    ", "    ")
 			if err != nil {

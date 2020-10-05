@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 )
 
+// ProducerFrom selects the type of input (and source) from the path/extension.
 func ProducerFrom(path string) chan Record {
 
 	switch path {
@@ -35,6 +36,7 @@ func ProducerFrom(path string) chan Record {
 	return nil
 }
 
+// OutputTo selects type of output handling and destination based on path/extensions.
 func OutputTo(path string) func(chan Record) {
 
 	switch path {
@@ -44,6 +46,8 @@ func OutputTo(path string) func(chan Record) {
 		return WriteJSON(os.Stdout)
 	case "jsonl":
 		return WriteJSONLines(os.Stdout)
+	case "tab", "tabular", "table":
+		return WriteTabular(os.Stdout)
 	}
 
 	_, err := os.Stat(path)
@@ -63,6 +67,8 @@ func OutputTo(path string) func(chan Record) {
 		return WriteJSON(out)
 	case ".jsonl":
 		return WriteJSONLines(out)
+	case ".tab", ".tabular", ".table":
+		return WriteTabular(out)
 	}
 
 	log.Fatalf("unrecognized output file extension: %s", filepath.Ext(path))

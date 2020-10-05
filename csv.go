@@ -36,9 +36,7 @@ func ReadCSV(input io.Reader) chan Record {
 					vals[headers[j]] = record[j]
 				}
 
-				c <- Record{
-					values: vals,
-				}
+				c <- NewRecord(vals)
 			}
 		}
 	}()
@@ -46,6 +44,7 @@ func ReadCSV(input io.Reader) chan Record {
 	return c
 }
 
+// WriteCSV writes out record stream as CSV.
 func WriteCSV(output io.Writer) RecordCollector {
 
 	writer := csv.NewWriter(output)

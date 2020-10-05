@@ -21,13 +21,13 @@ func NewRecord(value interface{}) Record {
 		}
 	case map[string]interface{}:
 		return Record{
-			values: obj,
+			values: GuessType(obj).(map[string]interface{}),
 		}
 	}
 
 	return Record{
 		values: map[string]interface{}{
-			"value": value,
+			"value": GuessType(value),
 		},
 	}
 }
